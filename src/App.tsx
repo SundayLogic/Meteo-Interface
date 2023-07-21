@@ -2,14 +2,20 @@ import React, { useState, useEffect, createContext } from 'react';
 import axios from 'axios';
 import LuminosityDisplay from './components/molecules/LuminosityDisplay';
 import RvrDisplay from './components/molecules/RvrDisplay';
-import MetarDisplay from './components/molecules/RvrDisplay';
+import MetarDisplay from './components/molecules/MetarDisplay';
 
-export const DataContext = createContext();
+export type DataContextType = {
+  luminosityData: any | null; // replace 'any' with the actual type of your luminosity data
+  metarData: any[] | null; // replace 'any' with the actual type of your metar data
+  rvrData: any[] | null; // replace 'any' with the actual type of your rvr data
+};
 
-function App() {
-  const [luminosityData, setLuminosityData] = useState(null);
-  const [metarData, setMetarData] = useState(null);
-  const [rvrData, setRvrData] = useState(null);
+export const DataContext = createContext<DataContextType | null>(null);
+
+const App: React.FC = () => {
+  const [luminosityData, setLuminosityData] = useState<any | null>(null);
+  const [metarData, setMetarData] = useState<any[] | null>(null);
+  const [rvrData, setRvrData] = useState<any[] | null>(null);
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts')

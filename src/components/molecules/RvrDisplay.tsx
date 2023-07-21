@@ -1,20 +1,22 @@
 import React, { useContext } from 'react';
-import { DataContext } from '../../App';
+import { DataContext, DataContextType } from '../../App';
 
-function RvrDisplay() {
-  const { rvrData } = useContext(DataContext);
+const RvrDisplay: React.FC = () => {
+  const data = useContext(DataContext) as DataContextType | null;
 
-  if (!rvrData) {
+  if (!data || !data.rvrData) {
     return <div>Loading...</div>;
   }
+
+  const { rvrData } = data;
 
   return (
     <div>
       <h2>Rvr Display</h2>
-      {rvrData.map((data) => (
-        <div key={data.id}>
-          <p>Date: {new Date(data.ts * 1000).toLocaleString()}</p>
-          <p>Text: {data.text}</p>
+      {rvrData.map((item) => (
+        <div key={item.id}>
+          <p>Date: {new Date(item.ts * 1000).toLocaleString()}</p>
+          <p>Text: {item.text}</p>
         </div>
       ))}
     </div>

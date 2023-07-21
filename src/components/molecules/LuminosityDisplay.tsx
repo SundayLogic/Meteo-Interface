@@ -1,8 +1,14 @@
 import React, { useContext } from 'react';
-import { DataContext } from '../../App';
+import { DataContext, DataContextType } from '../../App';
 
-function LuminosityDisplay() {
-  const { luminosityData } = useContext(DataContext);
+const LuminosityDisplay: React.FC = () => {
+  const context = useContext(DataContext);
+
+  if (!context) {
+    return <div>Loading...</div>;
+  }
+
+  const { luminosityData } = context;
 
   if (!luminosityData) {
     return <div>Loading...</div>;
