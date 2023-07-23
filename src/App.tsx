@@ -1,8 +1,6 @@
 import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
-import LuminosityDisplay from "./components/molecules/LuminosityDisplay";
-import RvrDisplay from "./components/molecules/RvrDisplay";
-import MetarDisplay from "./components/molecules/MetarDisplay";
+import Home from "./components/pages/Home";
 
 export type DataContextType = {
   luminosityData: any | null; // replace 'any' with the actual type of your luminosity data
@@ -48,11 +46,7 @@ const App: React.FC = () => {
 
   return (
     <DataContext.Provider value={{ luminosityData, metarData, rvrData }}>
-      <div className="p-6">
-        <LuminosityDisplay />
-        <MetarDisplay />
-        <RvrDisplay />
-      </div>
+      <Home />
     </DataContext.Provider>
   );
 };

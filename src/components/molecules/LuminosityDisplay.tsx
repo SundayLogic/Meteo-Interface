@@ -24,7 +24,7 @@ const LuminosityDisplay: React.FC = () => {
   }
 
   return (
-    <div className='bg-green-100'>
+    <div className='bg-green-100 h-[50vh]'>
       <h2 className='text-3xl font-bold'>Luminosidad</h2>
       <p>Luminosity Level: {luminosityLevel}</p>
       <p>Visibility Value: {luminosityData.value}</p>
