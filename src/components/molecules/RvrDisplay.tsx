@@ -8,17 +8,30 @@ const RvrDisplay: React.FC = () => {
     return <div>Loading...</div>;
   }
 
-  const { rvrData } = data;
+  // Sort rvrData by timestamp in descending order
+  const sortedRvrData = [...data.rvrData].sort((a, b) => b.ts - a.ts);
 
   return (
     <div className='bg-blue-100'>
-      <h2 className='text-3xl font-bold'>Rvr Display</h2>
-      {rvrData.map((item) => (
-        <div key={item.id}>
-          <p>Date: {new Date(item.ts * 1000).toLocaleString()}</p>
-          <p>Text: {item.text}</p>
-        </div>
-      ))}
+      <h2 className='text-4xl font-bold'>Rvr</h2>
+      <div className='overflow-auto max-h-[300px]'>
+        <table className='w-full text-left border-collapse'>
+          <thead>
+            <tr>
+              <th className='p-2 border'>Date</th>
+              <th className='p-2 border'>Text</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedRvrData.map((item: {id: string, ts: number, text: string}, index: number) => (
+              <tr key={item.id} className={index % 2 === 0 ? 'bg-blue-100' : 'bg-white'}>
+                <td className='p-2 border'>{new Date(item.ts * 1000).toLocaleString()}</td>
+                <td className='p-2 border font-bold'>{item.text}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
