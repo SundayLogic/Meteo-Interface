@@ -42,7 +42,12 @@ const LuminosityDisplay: React.FC = () => {
           Valor de Visibilidad:{" "}
           <span className="font-bold">{luminosityData.value}</span>
         </p>
-        <img src={icon} alt={luminosityLevel} className="w-36 pt-5 self-center" /> {/* Replace with desired width and height */}
+        <img
+          src={icon}
+          alt={luminosityLevel}
+          className="w-36 pt-5 self-center"
+        />{" "}
+        {/* Replace with desired width and height */}
       </div>
     </div>
   );

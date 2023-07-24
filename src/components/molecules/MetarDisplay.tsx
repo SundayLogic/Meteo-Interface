@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
-import { DataContext} from "../../App";
+import { DataContext } from "../../App";
 
 const MetarDisplay: React.FC = () => {
   const context = useContext(DataContext);
 
   if (!context) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   const { metarData } = context;
 
   if (!metarData) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
 
   // Sort metarData by timestamp in descending order
@@ -21,11 +21,15 @@ const MetarDisplay: React.FC = () => {
 
   return (
     <div className="bg-slate-100 p-2 rounded-lg shadow-lg">
-      <h2 className="text-4xl font-bold">Metar</h2>
+      <h2 className="text-5xl font-bold">Metar</h2>
       <div className="my-2">
         <h4 className="text-2xl font-bold">Valor más reciente</h4>
-        <p className="text-lg">Fecha: {new Date(mostRecentData.ts * 1000).toLocaleString()}</p>
-        <p>Texto: <span className="font-bold">{mostRecentData.text}</span></p>
+        <p className="text-xl">
+          Fecha: {new Date(mostRecentData.ts * 1000).toLocaleString()}
+        </p>
+        <p>
+          Texto: <span className="font-bold">{mostRecentData.text}</span>
+        </p>
       </div>
       <div className="overflow-auto max-h-[300px]">
         {" "}
