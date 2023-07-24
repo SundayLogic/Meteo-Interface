@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { DataContext, DataContextType } from "../../App";
+import { DataContext} from "../../App";
 
 const MetarDisplay: React.FC = () => {
   const context = useContext(DataContext);
@@ -20,11 +20,11 @@ const MetarDisplay: React.FC = () => {
   const mostRecentData = sortedMetarData[0];
 
   return (
-    <div className="bg-orange-100">
+    <div className="bg-slate-100 p-2 rounded-lg shadow-lg">
       <h2 className="text-4xl font-bold">Metar</h2>
       <div className="my-2">
-        <h4 className="text-xl font-bold">Valor más reciente</h4>
-        <p>Fecha: {new Date(mostRecentData.ts * 1000).toLocaleString()}</p>
+        <h4 className="text-2xl font-bold">Valor más reciente</h4>
+        <p className="text-lg">Fecha: {new Date(mostRecentData.ts * 1000).toLocaleString()}</p>
         <p>Texto: <span className="font-bold">{mostRecentData.text}</span></p>
       </div>
       <div className="overflow-auto max-h-[300px]">

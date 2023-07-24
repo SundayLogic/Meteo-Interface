@@ -12,14 +12,14 @@ const RvrDisplay: React.FC = () => {
   const sortedRvrData = [...data.rvrData].sort((a, b) => b.ts - a.ts);
 
   return (
-    <div className='bg-blue-100'>
+    <div className='bg-slate-100 p-2 rounded-lg w-[50vw] h-[36vh] shadow-lg'>
       <h2 className='text-4xl font-bold'>Rvr</h2>
       <div className='overflow-auto max-h-[300px]'>
         <table className='w-full text-left border-collapse'>
           <thead>
             <tr>
-              <th className='p-2 border'>Date</th>
-              <th className='p-2 border'>Text</th>
+              <th className='p-2 border'>Fecha</th>
+              <th className='p-2 border'>Texto</th>
             </tr>
           </thead>
           <tbody>
