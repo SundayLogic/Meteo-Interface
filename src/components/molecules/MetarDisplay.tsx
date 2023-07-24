@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
 
-// Create a new component for TableRow
+// Crea un nuevo componente para TableRow
 const TableRow = ({ data, index }: { data: { id: string; ts: number; text: string }, index: number }) => (
   <tr key={data.id} className={index % 2 === 0 ? "bg-orange-100" : "bg-white"}>
     <td className="p-2 border">
@@ -14,12 +14,12 @@ const TableRow = ({ data, index }: { data: { id: string; ts: number; text: strin
 const MetarDisplay: React.FC = () => {
   const { metarData } = useContext(DataContext) || {};
 
-  // Check if metarData is not available
+  // Comprueba si metarData no está disponible
   if (!metarData) {
     return <div>Cargando...</div>;
   }
 
-  // Sort metarData by timestamp in descending order
+  // Ordena metarData por fecha y hora en orden descendiente
   const sortedMetarData = [...metarData].sort((a, b) => b.ts - a.ts);
 
   const mostRecentData = sortedMetarData[0];

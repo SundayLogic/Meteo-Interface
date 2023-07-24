@@ -4,35 +4,42 @@ import dayIcon from "../../assets/day.png";
 import twilightIcon from "../../assets/twilight.png";
 import nightIcon from "../../assets/night.png";
 
+// Define la estructura para el objecto de nivel de luminosidad
 type LuminosityLevelType = {
   [key: string]: { min?: number; max?: number; icon: string };
 };
 
-// Define a mapping object to handle the luminosity levels
+// Crea un diccionario que mapea el nivel de luminosidad con icono y rango correspondiente
 const luminosityLevels: LuminosityLevelType = {
   Día: { max: 5, icon: dayIcon },
   Crepusculo: { min: 6, max: 10, icon: twilightIcon },
   Noche: { min: 11, icon: nightIcon },
 };
 
+
 const LuminosityDisplay: React.FC = () => {
+  // Extrae los datos de luminosidad de DataContext
   const { luminosityData } = useContext(DataContext) || {};
 
+  // Si los datos de luminosidad no se han cargado, enseña un mensaje de carga
   if (!luminosityData) {
     return <div>Cargando...</div>;
   }
 
+  // Destrucura los valores de los datos de luminosidad
   const { value } = luminosityData;
 
-  // Find the correct luminosity level based on the value
+  // Encuentra el nivel correcto de nivel de luminosidad y nivel de datos basado en el valor de luminosdidad
   const [luminosityLevel, levelData] = Object.entries(luminosityLevels).find(
     ([_, { min = -Infinity, max = Infinity }]) => value >= min && value <= max
   ) || [null, {}];
 
+  // Si el nivel de luminosidad no se ha podido encontrar, enseña un mensaje de error
   if (!luminosityLevel) {
     return <div>Invalid luminosity value: {value}</div>;
   }
 
+  // Destructura el icono de level data
   const { icon } = levelData;
 
   return (

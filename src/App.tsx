@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import Home from "./components/pages/Home";
 
+// Define los distintos tipados para los diferentes tipos de datos
 type LuminosityData = {
   ts: number;
   value: number;
@@ -24,18 +25,23 @@ type RvrData = {
   id: string;
 };
 
+// Define la estructura del data context
 export type DataContextType = {
   luminosityData: LuminosityData | null;
   metarData: MetarData[] | null;
   rvrData: RvrData[] | null;
 };
 
+// Crea el data context con valor base de null
 export const DataContext = createContext<DataContextType | null>(null);
 
-const useFetchData = <T, >(url: string): [T | null] => {
+// Crea un hook customizado para hacer el fetching de los datos
+const useFetchData = <T,>(url: string): [T | null] => {
+  // Inicializa el state para data
   const [data, setData] = useState<T | null>(null);
 
   useEffect(() => {
+    // Define una funcion para hacer el fetching de data
     const fetchData = async () => {
       try {
         const response = await axios.get(url);
@@ -52,9 +58,16 @@ const useFetchData = <T, >(url: string): [T | null] => {
 };
 
 const App: React.FC = () => {
-  const [luminosityDataArray] = useFetchData<LuminosityData[]>("http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts");
-  const [metarData] = useFetchData<MetarData[]>("http://127.0.0.1:8000/v1/logmetar");
-  const [rvrData] = useFetchData<RvrData[]>("http://127.0.0.1:8000/v1/logrvrmor");
+  // Haz un fetching de los datos necesarios usando el hook customizado
+  const [luminosityDataArray] = useFetchData<LuminosityData[]>(
+    "http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts"
+  );
+  const [metarData] = useFetchData<MetarData[]>(
+    "http://127.0.0.1:8000/v1/logmetar"
+  );
+  const [rvrData] = useFetchData<RvrData[]>(
+    "http://127.0.0.1:8000/v1/logrvrmor"
+  );
 
   const luminosityData = luminosityDataArray?.[0] || null;
 
