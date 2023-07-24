@@ -1,27 +1,48 @@
-# React + TypeScript + Vite
+# Interfaz de Estación Meteorológica
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto ofrece una interfaz gráfica en tiempo real para una estación meteorológica, con React. Obtiene datos de un servicio de backend y muestra información sobre la luminosidad, METAR (Informe Meteorológico de Aeródromo) y RVR (Alcance Visual en Pista) de una amigable para el usuario.
 
-Currently, two official plugins are available:
+![Screenshot de la aplicación](./src/assets/screenshot.png "Captura de pantalla")
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Características
 
-## Expanding the ESLint configuration
+- Obtiene y muestra datos meteorológicos en tiempo real del servicio de backend.
+- Muestra niveles de luminosidad con iconos correspondientes.
+- Muestra datos de METAR y RVR en un formato tabular, ordenado por fecha y hora.
+- Proporciona estados de carga y error amigables para el usuario.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Comenzando
 
-- Configure the top-level `parserOptions` property like this:
+### Prerrequisitos
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Para ejecutar este proyecto, necesitarás tener Node.js instalado en tu máquina. Puedes descargar Node.js desde https://nodejs.org/.
+
+### Instalación
+
+1. Clona el repositorio:
+
+```bash
+git clone https://github.com/tu-nombre-de-usuario-de-github/tablero-estacion-meteorologica.git
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Instala dependencias:
+
+```bash
+cd tablero-estacion-meteorologica
+npm install
+```
+
+3. Ejecuta el projecto:
+
+```bash
+npm start
+```
+
+## Estructura del Proyecto
+
+- LuminosityDisplay - Componente para mostrar datos de luminosidad.
+- MetarDisplay - Componente para mostrar datos de METAR.
+- RvrDisplay - Componente para mostrar datos de RVR.
+- Tablas - Componente de nivel superior que agrupa los tres componentes anteriores.
+- Home - Componente de diseño que muestra el componente Tablas.
+- App - Componente raíz de la aplicación. Gestiona la obtención de datos y la provisión de contexto.

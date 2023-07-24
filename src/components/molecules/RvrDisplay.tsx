@@ -37,11 +37,9 @@ const RvrDisplay: React.FC = () => {
                     className={index % 2 === 0 ? "bg-blue-100" : "bg-white"} // Usa un color de fondo distinto para cada fila
                   >
                     <td className="p-2 border">
-                      {new Date(item.ts * 1000).toLocaleString()} // Convert
-                      timestamp to a readable date
+                      {new Date(item.ts * 1000).toLocaleString()}
                     </td>
-                    <td className="p-2 border font-bold">{item.text}</td> //
-                    Display the text data
+                    <td className="p-2 border font-bold">{item.text}</td> 
                   </tr>
                 )
               )

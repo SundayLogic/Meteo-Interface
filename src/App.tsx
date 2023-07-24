@@ -36,7 +36,7 @@ export type DataContextType = {
 export const DataContext = createContext<DataContextType | null>(null);
 
 // Crea un hook customizado para hacer el fetching de los datos
-const useFetchData = <T,>(url: string): [T | null] => {
+const useFetchData = <T, >(url: string): [T | null] => {
   // Inicializa el state para data
   const [data, setData] = useState<T | null>(null);
 
@@ -59,15 +59,10 @@ const useFetchData = <T,>(url: string): [T | null] => {
 
 const App: React.FC = () => {
   // Haz un fetching de los datos necesarios usando el hook customizado
-  const [luminosityDataArray] = useFetchData<LuminosityData[]>(
-    "http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts"
-  );
-  const [metarData] = useFetchData<MetarData[]>(
-    "http://127.0.0.1:8000/v1/logmetar"
-  );
-  const [rvrData] = useFetchData<RvrData[]>(
-    "http://127.0.0.1:8000/v1/logrvrmor"
-  );
+  const [luminosityDataArray] = useFetchData<LuminosityData[]>("http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts");
+  const [metarData] = useFetchData<MetarData[]>("http://127.0.0.1:8000/v1/logmetar");
+  const [rvrData] = useFetchData<RvrData[]>("http://127.0.0.1:8000/v1/logrvrmor");
+
 
   const luminosityData = luminosityDataArray?.[0] || null;
 
