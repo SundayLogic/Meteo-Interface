@@ -1,15 +1,20 @@
 import React, { useContext } from "react";
 import { DataContext } from "../../App";
 
+// Create a new component for TableRow
+const TableRow = ({ data, index }: { data: { id: string; ts: number; text: string }, index: number }) => (
+  <tr key={data.id} className={index % 2 === 0 ? "bg-orange-100" : "bg-white"}>
+    <td className="p-2 border">
+      {new Date(data.ts * 1000).toLocaleString()}
+    </td>
+    <td className="p-2 border font-bold">{data.text}</td>
+  </tr>
+);
+
 const MetarDisplay: React.FC = () => {
-  const context = useContext(DataContext);
+  const { metarData } = useContext(DataContext) || {};
 
-  if (!context) {
-    return <div>Cargando...</div>;
-  }
-
-  const { metarData } = context;
-
+  // Check if metarData is not available
   if (!metarData) {
     return <div>Cargando...</div>;
   }
@@ -32,8 +37,6 @@ const MetarDisplay: React.FC = () => {
         </p>
       </div>
       <div className="overflow-auto max-h-[300px]">
-        {" "}
-        {/* Adjusted max height */}
         <table className="w-full text-left border-collapse">
           <thead>
             <tr>
@@ -42,22 +45,9 @@ const MetarDisplay: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedMetarData.map(
-              (
-                data: { id: string; ts: number; text: string },
-                index: number
-              ) => (
-                <tr
-                  key={data.id}
-                  className={index % 2 === 0 ? "bg-orange-100" : "bg-white"}
-                >
-                  <td className="p-2 border">
-                    {new Date(data.ts * 1000).toLocaleString()}
-                  </td>
-                  <td className="p-2 border font-bold">{data.text}</td>
-                </tr>
-              )
-            )}
+            {sortedMetarData.map((data, index) => (
+              <TableRow data={data} index={index} />
+            ))}
           </tbody>
         </table>
       </div>

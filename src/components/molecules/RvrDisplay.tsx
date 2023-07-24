@@ -1,15 +1,30 @@
 import React, { useContext } from "react";
 import { DataContext, DataContextType } from "../../App";
 
-const RvrDisplay: React.FC = () => {
-  const data = useContext(DataContext) as DataContextType | null;
+// Create a new component for TableRow
+const TableRow = ({
+  item,
+  index,
+}: {
+  item: { id: string; ts: number; text: string };
+  index: number;
+}) => (
+  <tr key={item.id} className={index % 2 === 0 ? "bg-blue-100" : "bg-white"}>
+    <td className="p-2 border">{new Date(item.ts * 1000).toLocaleString()}</td>
+    <td className="p-2 border font-bold">{item.text}</td>
+  </tr>
+);
 
-  if (!data || !data.rvrData) {
+const RvrDisplay: React.FC = () => {
+  const { rvrData } = (useContext(DataContext) as DataContextType | null) || {};
+
+  // Check if rvrData is not available
+  if (!rvrData) {
     return <div>Cargando...</div>;
   }
 
   // Sort rvrData by timestamp in descending order
-  const sortedRvrData = [...data.rvrData].sort((a, b) => b.ts - a.ts);
+  const sortedRvrData = [...rvrData].sort((a, b) => b.ts - a.ts);
 
   return (
     <div className="bg-slate-100 p-2 rounded-lg w-[50vw] h-[36vh] shadow-lg">
@@ -23,22 +38,9 @@ const RvrDisplay: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {sortedRvrData.map(
-              (
-                item: { id: string; ts: number; text: string },
-                index: number
-              ) => (
-                <tr
-                  key={item.id}
-                  className={index % 2 === 0 ? "bg-blue-100" : "bg-white"}
-                >
-                  <td className="p-2 border">
-                    {new Date(item.ts * 1000).toLocaleString()}
-                  </td>
-                  <td className="p-2 border font-bold">{item.text}</td>
-                </tr>
-              )
-            )}
+            {sortedRvrData.map((item, index) => (
+              <TableRow item={item} index={index} />
+            ))}
           </tbody>
         </table>
       </div>

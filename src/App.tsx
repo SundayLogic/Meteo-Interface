@@ -2,47 +2,61 @@ import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import Home from "./components/pages/Home";
 
+type LuminosityData = {
+  ts: number;
+  value: number;
+  id_metar: string;
+  id_rvr: string | null;
+  metar: string;
+  rvrmor: string | null;
+  id: string;
+};
+
+type MetarData = {
+  ts: number;
+  text: string;
+  id: string;
+};
+
+type RvrData = {
+  ts: number;
+  text: string;
+  id: string;
+};
+
 export type DataContextType = {
-  luminosityData: any | null; // replace 'any' with the actual type of your luminosity data
-  metarData: any[] | null; // replace 'any' with the actual type of your metar data
-  rvrData: any[] | null; // replace 'any' with the actual type of your rvr data
+  luminosityData: LuminosityData | null;
+  metarData: MetarData[] | null;
+  rvrData: RvrData[] | null;
 };
 
 export const DataContext = createContext<DataContextType | null>(null);
 
-const App: React.FC = () => {
-  const [luminosityData, setLuminosityData] = useState<any | null>(null);
-  const [metarData, setMetarData] = useState<any[] | null>(null);
-  const [rvrData, setRvrData] = useState<any[] | null>(null);
+const useFetchData = <T, >(url: string): [T | null] => {
+  const [data, setData] = useState<T | null>(null);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts")
-      .then((response) => {
-        setLuminosityData(response.data[0]);
-      })
-      .catch((error) => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(url);
+        setData(response.data);
+      } catch (error) {
         console.error(error);
-      });
+      }
+    };
 
-    axios
-      .get("http://127.0.0.1:8000/v1/logmetar")
-      .then((response) => {
-        setMetarData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    fetchData();
+  }, [url]);
 
-    axios
-      .get("http://127.0.0.1:8000/v1/logrvrmor")
-      .then((response) => {
-        setRvrData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  return [data];
+};
+
+const App: React.FC = () => {
+  const [luminosityDataArray] = useFetchData<LuminosityData[]>("http://127.0.0.1:8000/v1/v_meteo?__limit=1&__order=-ts");
+  const [metarData] = useFetchData<MetarData[]>("http://127.0.0.1:8000/v1/logmetar");
+  const [rvrData] = useFetchData<RvrData[]>("http://127.0.0.1:8000/v1/logrvrmor");
+
+  const luminosityData = luminosityDataArray?.[0] || null;
 
   return (
     <DataContext.Provider value={{ luminosityData, metarData, rvrData }}>
