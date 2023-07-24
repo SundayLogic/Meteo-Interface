@@ -1,6 +1,6 @@
 # Interfaz de Estación Meteorológica
 
-Este proyecto ofrece una interfaz gráfica en tiempo real para una estación meteorológica, con React. Obtiene datos de un servicio de backend y muestra información sobre la luminosidad, METAR (Informe Meteorológico de Aeródromo) y RVR (Alcance Visual en Pista) de una amigable para el usuario.
+Este proyecto ofrece una interfaz gráfica en tiempo real para una estación meteorológica, con React. Obtiene datos de un servicio de backend y muestra información sobre la luminosidad, METAR (Informe meteorológico aeronáutico de rutina) y RVR (Alcance Visual en Pista) de una amigable para el usuario.
 
 ![Screenshot de la aplicación](./src/assets/screenshot.png "Captura de pantalla")
 
@@ -15,7 +15,7 @@ Este proyecto ofrece una interfaz gráfica en tiempo real para una estación met
 
 ### Prerrequisitos
 
-Para ejecutar este proyecto, necesitarás tener Node.js instalado en tu máquina. Puedes descargar Node.js desde https://nodejs.org/.
+Para ejecutar este proyecto, necesitarás tener Node.js instalado en tu ordenador. Puedes descargar Node.js desde https://nodejs.org/.
 
 ### Instalación
 
